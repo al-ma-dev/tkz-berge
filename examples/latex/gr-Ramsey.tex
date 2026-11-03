@@ -1,0 +1,29 @@
+% gr-Ramsey.tex -- R(3,3) = 6
+% left : K5 coloured without monochromatic triangle
+% right : in K6, every colouring has a monochromatic triangle
+% Engine : pdfLaTeX or LuaLaTeX
+\documentclass[border=3mm, convert=false]{standalone}
+\usepackage{tkz-berge}
+\begin{document}
+\begin{tikzpicture}
+  \GraphInit[vstyle=Art]
+  \SetGraphUnit{2.2}
+  \Vertices[rotation=90]{circle}{0,1,2,3,4}
+  \Edges[local,color=red,lw=1.5pt](0,1,2,3,4,0)
+  \Edges[local,color=blue,lw=1.5pt](0,2,4,1,3,0)
+  \Vertices[rotation=90]{circle}{0,1,2,3,4}
+  \node at (0,-3) {\(K_5\) : no monochromatic triangle};
+  \begin{scope}[xshift=7cm]
+    \Vertices[rotation=90]{circle}{a,b,c,d,e}
+    \Vertex[x=0,y=0]{f}
+    \Edges[local,color=red,lw=1.5pt](a,b,c,d,e,a)
+    \Edges[local,color=blue,lw=1.5pt](a,c,e,b,d,a)
+    \foreach \v in {a,b}{\Edge[local,color=red,lw=1.5pt](f)(\v)}
+    \foreach \v in {c,d,e}{\Edge[local,color=blue,lw=1.5pt](f)(\v)}
+    \fill[red,opacity=.25] (f.center) -- (a.center) -- (b.center) -- cycle;
+    \Vertices[rotation=90]{circle}{a,b,c,d,e}
+    \Vertex[x=0,y=0]{f}
+    \node at (0,-3) {\(K_6\) : the triangle \(f a b\) is red};
+  \end{scope}
+\end{tikzpicture}
+\end{document}
